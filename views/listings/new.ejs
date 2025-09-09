@@ -4,15 +4,15 @@
         <br><br>
     <h3>Create New Listing</h3>
     <br><br>
-    <form method="post" action="/listings">
+    <form method="post" action="/listings"  >
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
-            <input type="text" class="form-control" placeholder="enter title" name="title">
+            <input type="text" class="form-control" placeholder="enter title" name="title" required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description:</label>
-            <textarea class="form-control" placeholder="enter description" name="description">
+            <textarea class="form-control" placeholder="enter description" name="description" type="text" required>
         </textarea>
         </div>
 
@@ -24,19 +24,19 @@
         <div class="row">
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Price:</label>
-                <input type="number" class="form-control" name="price">
+                <input type="number" class="form-control" name="price" required>
             </div>
 
             <div class="mb-3 col-md-8">
                 <label for="country" class="form-label">Country:</label>
-                <input type="text" class="form-control" placeholder="enter country" name="country">
+                <input type="text" class="form-control" placeholder="enter country" name="country" required>
             </div>
         </div>
         
 
         <div class="mb-3">
             <label for="location" class="form-label">Location:</label>
-            <input type="text" class="form-control" placeholder="enter location" name="location">
+            <input type="text" class="form-control" placeholder="enter location" name="location" required>
         </div>
 
         

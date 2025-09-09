@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const listingSchema = new Schema({
     title: {
         type: String,
-        required: true,
+        required:true,
     },
     description: {
         type: String,
@@ -25,6 +25,7 @@ const listingSchema = new Schema({
     },
     price: {
         type: Number,
+        min: 0,
     },
     location: {
         type: String,
