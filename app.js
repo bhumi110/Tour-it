@@ -7,6 +7,7 @@ const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
+//const {listingSchema}=require("./schema.js");
 
 app.use(methodOverride('_method'));
 app.set("view engine","ejs");
@@ -55,16 +56,14 @@ app.get("/listings/:id",wrapAsync(async(req,res)=>{
 }))
 
 //---create route-------
-app.post("/listings",wrapAsync(async(req,res)=>{
-    if(!req.body.listing){
-        throw new ExpressError(400,"send valid data");
-    }
-    const newListing=new Listing(req.body.listing);
+app.post("/listings",async(req,res)=>{
+    //listingSchema.validate(req.body);
+    //console.log(result);
+    const newListing=new Listing(req.body);
     await newListing.save();
     console.log("New listing created:",newListing);
     res.redirect("/listings");
-    })
-);
+    });
 
 //edit route
 app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
@@ -110,10 +109,11 @@ app.delete('/listings/:id',wrapAsync(async(req,res)=>{
 //    next(new ExpressError(404, "page not found"));
 //});
 
-app.use((err,req,res,next)=>{
-    let {statusCode,message}=err;
-    res.status(statusCode).send(message);
-});
+//app.use((err,req,res,next)=>{
+//    let {statusCode,message}=err;
+//    //res.render("error.ejs");
+//    res.status(statusCode).send(message);
+//});
 
 app.listen(8080,()=>{
     console.log("Server is running on port 8080");
