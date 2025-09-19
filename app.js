@@ -7,7 +7,8 @@ const methodOverride=require('method-override');
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
-//const {listingSchema}=require("./schema.js");
+const Review=require('./models/review.js');
+const {listingSchema,reviewSchema}=require("./schema.js");
 
 app.use(methodOverride('_method'));
 app.set("view engine","ejs");
@@ -35,6 +36,27 @@ app.get("/",(req,res)=>{
     res.send("Hello World");
 });
 
+const validateListing=(req,res,next)=>{
+    let {error}=listingSchema.validate(req.body);
+    if(error){
+        let errMsg=error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    } else{
+        next();
+    }
+};
+
+const validateReview=(req,res,next)=>{
+    let {error}=reviewSchema.validate(req.body);
+    if(error){
+        let errMsg=error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    } else{
+        next();
+    }
+};
+
+
 //----------index route--------
 app.get("/listings",wrapAsync(async(req,res)=>{
     const allListings=await Listing.find({});
@@ -43,27 +65,28 @@ app.get("/listings",wrapAsync(async(req,res)=>{
 }));
 
 //-----new listing route--------
-app.get('/listings/new',wrapAsync((req,res)=>{
+app.get('/listings/new',wrapAsync(async(req,res)=>{
 res.render("listings/new.ejs");
 }));
 
 //--------show route-----
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
-    const {id}=req.params;
-    const listing=await Listing.findById(id);
+    let {id}=req.params;
+    const listing=await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs",{listing});
     console.log("Listing details fetched and rendered");
 }))
 
 //---create route-------
-app.post("/listings",async(req,res)=>{
+app.post("/listings",validateListing, wrapAsync(async(req,res)=>{
     //listingSchema.validate(req.body);
     //console.log(result);
     const newListing=new Listing(req.body);
     await newListing.save();
     console.log("New listing created:",newListing);
     res.redirect("/listings");
-    });
+    })
+);
 
 //edit route
 app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
@@ -90,6 +113,28 @@ app.delete('/listings/:id',wrapAsync(async(req,res)=>{
 }))
 
 
+//reviews route
+app.post("/listings/:id/review",validateReview,wrapAsync(async(req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    let newReview=new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+
+    console.log("new review saved");
+    res.redirect(`/listings/${listing._id}`);
+})
+);
+
+//review delete route
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+    let {id,reviewId}=req.params;
+    await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`);
+}));
+
 
 
 //app.get("/testListing",async(req,res)=>{
@@ -111,7 +156,7 @@ app.delete('/listings/:id',wrapAsync(async(req,res)=>{
 
 //app.use((err,req,res,next)=>{
 //    let {statusCode,message}=err;
-//    //res.render("error.ejs");
+//    res.render("error.ejs");
 //    res.status(statusCode).send(message);
 //});
 
