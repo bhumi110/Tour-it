@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV !="production"){
+require("dotenv").config();
+};
+
+
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
@@ -33,7 +38,6 @@ main()
 
 async function main() {
     await mongoose.connect(MONGO_URL);
-
 }
 
 
@@ -47,6 +51,7 @@ const sessionOptions={
         httpOnly:true,
     }
 };
+
 
 //------------home route----------------
 app.get("/",(req,res)=>{
@@ -80,6 +85,7 @@ app.use((req,res,next)=>{
 //    res.send(registeredUser);
 //});
 
+
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
@@ -97,7 +103,6 @@ app.use("/",userRouter);
 //    console.log("Sample listing saved");
 //    res.send("Sample listing saved");
 //});
-
 
 
 //app.all("*",(req,res,next)=>{
