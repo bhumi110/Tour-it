@@ -54,9 +54,9 @@ const sessionOptions={
 
 
 //------------home route----------------
-app.get("/",(req,res)=>{
-    res.send("Hello World");
-});
+//app.get("/",(req,res)=>{
+//    res.send("Hello World");
+//});
 
 app.use(session(sessionOptions));
 app.use(flash());
