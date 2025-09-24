@@ -44,19 +44,17 @@ Users can create listings, upload images, leave reviews, and manage their own pr
 ---
 
 
-## 📸 Screenshots
+## 📸 Screenshots  
 
-### 🏠 Homepage
-(./output/homepage.png)
+<p align="center">
+  <img src="./output/homepage.png" alt="Homepage" width="400"/>
+  <img src="./output/loginpage.png" alt="Login Page" width="400"/>
+</p>
 
-### 📋 Login Page
-(./output/loginpage.png)
-
-### ➕ Create Listing
-(./output/create.png)
-
-### 📝 Listing Details (with Reviews)
-(./output/detail.png)
-
+<p align="center">
+  <img src="./output/create.png" alt="Create Listing" width="400"/>
+  <img src="./output/detail.png" alt="Listing Details" width="400"/>
+</p>
+  
 
 
