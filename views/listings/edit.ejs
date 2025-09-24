@@ -4,7 +4,7 @@
             <br>
             <h3>Edit listing:</h3>
             <br><br>
-            <form method="post" action="/listings/<%=listing._id%>?_method=PUT" enctype="multipart/form-data">
+            <form method="post" action="/listings/<%=listing._id%>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title:</label>
                     <input type="text" class="form-control" name="title" value="<%=listing.title%>" required>
@@ -53,3 +53,4 @@
             <br><br>
         </div>
     </div>
+    <script src="/js/script.js"></script>

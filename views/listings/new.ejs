@@ -4,16 +4,18 @@
         <br><br>
     <h3>Start Hosting Today</h3>
     <br><br>
-    <form method="post" action="/listings" enctype="multipart/form-data" >
+    <form method="post" action="/listings" enctype="multipart/form-data" novalidate class="needs-validation">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
             <input type="text" class="form-control" placeholder="enter title" name="title" required>
+            <div class="valid-feedback">Title looks good!</div>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description:</label>
             <textarea class="form-control" placeholder="enter description" name="description" type="text" required>
         </textarea>
+        <div class="valid-feedback">Description looks good!</div>
         </div>
 
 
@@ -27,11 +29,13 @@
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">Price:</label>
                 <input type="number" class="form-control" name="price" required>
+                <div class="invalid-feedback">Please enter a valid price...</div>
             </div>
 
             <div class="mb-3 col-md-8">
                 <label for="country" class="form-label">Country:</label>
                 <input type="text" class="form-control" placeholder="enter country" name="country" required>
+                <div class="invalid-feedback">Country should be valid...</div>
             </div>
         </div>
         
@@ -39,6 +43,7 @@
         <div class="mb-3">
             <label for="location" class="form-label">Location:</label>
             <input type="text" class="form-control" placeholder="enter location" name="location" required>
+            <div class="invalid-feedback">Location should be valid...</div>
         </div>
 
         

@@ -111,8 +111,8 @@ app.use("/",userRouter);
 
 //app.use((err,req,res,next)=>{
 //    let {statusCode,message}=err;
-//    res.render("error.ejs");
-//    res.status(statusCode).send(message);
+//    
+//    res.status(statusCode).render("error.ejs",{message});
 //});
 
 app.listen(8080,()=>{
