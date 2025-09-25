@@ -41,18 +41,32 @@ const listingSchema = new Schema({
             ref: "Review",
         }
     ],
-    owner:{
-        type:Schema.Types.ObjectId,
-        ref:"User",
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
     },
-    //category:{
-        //type:String,
-        //enum:["mountains","arctic","farms","room","beach","castle","pool","camping","city"]
-    //}
+    category: {
+        type: String,
+        enum: [
+            "trending",
+            "rooms",
+            "iconic_cities",
+            "mountains",
+            "beach",
+            "castle",
+            "amazing_pools",
+            "camping",
+            "farms",
+            "arctic",
+            "domes",
+            "boats"
+        ],
+        required: true
+    },
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
-    if (listing){
+    if (listing) {
         await Review.deleteMany({ _id: { $in: listing.reviews } });
     }
 });
