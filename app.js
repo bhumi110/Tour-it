@@ -124,16 +124,16 @@ app.use("/",userRouter);
 //});
 
 
-//app.all("*",(req,res,next)=>{
-//    next(new ExpressError(404, "page not found"));
-//});
+app.use((req, res, next) => {
+    next(new ExpressError(404, 'Page Not Found!'));
+});
 
-//app.use((err,req,res,next)=>{
-//    let {statusCode,message}=err;
-//    
-//    res.status(statusCode).render("error.ejs",{message});
-//});
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = 'Something went wrong' } = err;
+    //res.status(statusCode).send(message);
+    res.render("error.ejs", { message });
+});
 
-app.listen(8080,()=>{
+app.listen(8080, () => {
     console.log("Server is running on port 8080");
 });
