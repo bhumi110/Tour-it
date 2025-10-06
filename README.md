@@ -3,6 +3,8 @@
 A full-stack web application that replicates the core features of **Airbnb**.  
 Users can create listings, upload images, leave reviews, and manage their own properties with secure authentication and authorization.
 
+🌐 **Live Demo:** [tour-it-6o7q.onrender.com](https://tour-it-6o7q.onrender.com)
+- Note: Currently optimized for desktop; mobile responsiveness coming soon.
 ---
 
 ## 🚀 Features
